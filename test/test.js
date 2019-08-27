@@ -2,15 +2,19 @@
 
 //configure IOC container
 const ioc = require('../lib/iocContainer');
+
 ioc.service('loggerFactory', c => require('../lib/winstonLogger'));
 ioc.service('ehFactory', c => require('../lib/exceptionHandler'));
 ioc.service('database', c => require('../lib/data/mockdb'));
 
+
+
 const expect  = require('chai').expect;
+const database = ioc.database;
 
 describe('Movie Tests', async () => {
     it ('get movies', async () => {
-        await(database.initialize());
+        await(database.initialize('http://localhost:3030'));
         const movies = await database.getMovies();
 
         expect(movies, 'movies output is null').to.exist;
