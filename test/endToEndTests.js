@@ -82,6 +82,51 @@ describe('GraphQL Client Tests', async () => {
     });
 
     /**
+     * if someone tries to log in using a nonexistent account, incorrect password, or
+     * otherwise invalid inputs, it should fail
+     */
+    it('attempt invalid login', async () => {
+        //create client
+        const client = new GraphQLTestClient(testUtils.getServerUrl());
+
+        //username & passwd
+        const username = testUtils.generateNewUsername();
+        const password = 'p@$$w0rb';
+
+        //attempt to login before creating user
+        const login = await client.login(username, password);
+        expect(login.login.token).not.to.exist;
+
+        //create new user
+        const createUser = await client.createUser(username, password);
+        testUtils.testAuthOutput(createUser, 'createUser');
+
+        //attempt to log in with incorrect password
+        const login2 = await client.login(username, password + '0000');
+        expect(login2.login.token).not.to.exist;
+
+        //attempt to log in with null or empty inputs
+        const login3 = await client.login('', '');
+        expect(login3.login.token).not.to.exist;
+
+        //authenticate user in separate step
+        const login4 = await client.login(username, password);
+        testUtils.testAuthOutput(login4, 'login');
+    });
+
+    /**
+     * attempting to create a new user with invalid inputs, should fail
+     */
+    it('create user invalid inputs', async () => {
+        //create client
+        const client = new GraphQLTestClient(testUtils.getServerUrl());
+
+        //create new user
+        const createUser = await client.createUser('', '');
+        expect(createUser.createUser.token).not.to.exist;
+    });
+
+    /**
      * when user is not authenticated, scoutbase_rating should not be retrievable
      */
     it('attempt to retrieve scoutbase_rating unauthenticated', async () => {
