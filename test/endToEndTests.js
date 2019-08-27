@@ -1,5 +1,14 @@
 'use strict';
 
+/**
+ * scoutbase-code-challenge
+ * ------------------------
+ * unit tests: end-to-end using real GraphQL requests against a running server.
+ *
+ * Author: John R. Kosinski
+ * Date: 27 Aug 2019
+ */
+
 const testUtils = require('./testUtils');
 const ioc = require('../lib/utils/iocContainer');
 const GraphQLTestClient = require('./graphQLTestClient');
@@ -22,7 +31,7 @@ describe('GraphQL Client Tests', async () => {
      */
     it('get movies', async () => {
         //create client
-        const client = new GraphQLTestClient(testUtils.getServerUrl());
+        const client = new GraphQLTestClient(testUtils.getApolloServerUrl());
 
         //get movies
         const data = await client.getMovies();
@@ -50,7 +59,7 @@ describe('GraphQL Client Tests', async () => {
      */
     it('create user', async () => {
         //create client
-        const client = new GraphQLTestClient(testUtils.getServerUrl());
+        const client = new GraphQLTestClient(testUtils.getApolloServerUrl());
 
         //username & passwd
         const username = testUtils.generateNewUsername();
@@ -66,7 +75,7 @@ describe('GraphQL Client Tests', async () => {
      */
     it('login user', async () => {
         //create client
-        const client = new GraphQLTestClient(testUtils.getServerUrl());
+        const client = new GraphQLTestClient(testUtils.getApolloServerUrl());
 
         //username & passwd
         const username = testUtils.generateNewUsername();
@@ -87,7 +96,7 @@ describe('GraphQL Client Tests', async () => {
      */
     it('attempt invalid login', async () => {
         //create client
-        const client = new GraphQLTestClient(testUtils.getServerUrl());
+        const client = new GraphQLTestClient(testUtils.getApolloServerUrl());
 
         //username & passwd
         const username = testUtils.generateNewUsername();
@@ -119,7 +128,7 @@ describe('GraphQL Client Tests', async () => {
      */
     it('create user invalid inputs', async () => {
         //create client
-        const client = new GraphQLTestClient(testUtils.getServerUrl());
+        const client = new GraphQLTestClient(testUtils.getApolloServerUrl());
 
         //create new user
         const createUser = await client.createUser('', '');
@@ -130,7 +139,7 @@ describe('GraphQL Client Tests', async () => {
      * when user is not authenticated, scoutbase_rating should not be retrievable
      */
     it('attempt to retrieve scoutbase_rating unauthenticated', async () => {
-        const client = new GraphQLTestClient(testUtils.getServerUrl());
+        const client = new GraphQLTestClient(testUtils.getApolloServerUrl());
 
         //get movies without auth
         const data = await client.getMovies(true);
@@ -146,7 +155,7 @@ describe('GraphQL Client Tests', async () => {
         await testUtils.startServer();
 
         //create client
-        const client = new GraphQLTestClient(testUtils.getServerUrl());
+        const client = new GraphQLTestClient(testUtils.getApolloServerUrl());
 
         //username & password
         const username = testUtils.generateNewUsername();

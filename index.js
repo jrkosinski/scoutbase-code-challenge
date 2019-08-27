@@ -1,5 +1,15 @@
 'use strict';
 
+/**
+ * scoutbase-code-challenge
+ * ------------------------
+ * entry point: configures IOC container, database, Apollo server, and express.
+ * Starts the server running.
+ *
+ * Author: John R. Kosinski
+ * Date: 27 Aug 2019
+ */
+
 const LOG_TAG = 'index';
 
 //config
@@ -24,6 +34,10 @@ const exception = ioc.ehFactory.createHandler(logger);
 
 const server = require('./lib/server');
 
+
+/**
+ * starts the server
+ */
 async function startServer() {
     await exception.tryAsync(async () => {
         logger.info('starting server...');

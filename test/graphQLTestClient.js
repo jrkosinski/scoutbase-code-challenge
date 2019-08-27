@@ -1,5 +1,14 @@
 'use strict';
 
+/**
+ * scoutbase-code-challenge
+ * ------------------------
+ * implements a GraphQL client for testing.
+ *
+ * Author: John R. Kosinski
+ * Date: 27 Aug 2019
+ */
+
 const {request, GraphQLClient} = require('graphql-request');
 
 /**

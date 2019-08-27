@@ -1,5 +1,14 @@
 'use strict';
 
+/**
+ * scoutbase-code-challenge
+ * ------------------------
+ * unit tests: direct database access.
+ *
+ * Author: John R. Kosinski
+ * Date: 27 Aug 2019
+ */
+
 const testUtils = require('./testUtils');
 const ioc = require('../lib/utils/iocContainer');
 
