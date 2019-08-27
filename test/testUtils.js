@@ -16,7 +16,7 @@ const MOCKDB_URL = 'http://localhost:3030';
 let usernameCounter = 0;
 
 async function initializeDatabase() {
-    process.env.MOCKDB_URL = MOCKDB_URL; //TODO: is this necessary?
+    process.env.MOCKDB_URL = MOCKDB_URL;
     await database.initialize(MOCKDB_URL);
 }
 
