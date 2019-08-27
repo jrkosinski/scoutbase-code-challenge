@@ -6,6 +6,26 @@
  * entry point: configures IOC container, database, Apollo server, and express.
  * Starts the server running.
  *
+ * Just some quick notes about this implementation, for the reader:
+ *
+ * - uses apollo-server-express and express to implement the GraphQL and http servers (see server.js)
+ *
+ * - two DB implementations: mongo-mock and mongoose (mongodb); mongo-mock is the default (see ./lib/data)
+ *
+ * - while the mongo-mock implementation has embedded documents (leading to duplication of data),
+ *      the mongodb implementation uses document references
+ *
+ * - I've checked in node_modules and .env just to make testing easier for you
+ *
+ * - dates are stored in the database as unix timestamps, but presented in GraphQL as strings
+ *      (there is in fact an additional birthday_timestamp property that returns the unix timestamp)
+ *
+ * - scoutbase_rating property is restricted using a custom SchemaDirectiveVisitor
+ *      (see ./gqlTypes/authDirective) which takes data from a context object. Authentication is
+ *      very simple and is defined in ./lib/auth
+ *
+ * - this solution contains unit tests
+ *
  * Author: John R. Kosinski
  * Date: 27 Aug 2019
  */
