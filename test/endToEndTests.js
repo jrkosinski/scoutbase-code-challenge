@@ -1,7 +1,7 @@
 'use strict';
 
 const testUtils = require('./testUtils');
-const ioc = require('../lib/iocContainer');
+const ioc = require('../lib/utils/iocContainer');
 const GraphQLTestClient = require('./graphQLTestClient');
 
 const expect  = require('chai').expect;
@@ -121,5 +121,7 @@ describe('GraphQL Client Tests', async () => {
 
         expect(data2.movies[0]).to.have.property('scoutbase_rating');
         expect(data2.movies[0].scoutbase_rating).not.to.equal('NOT AUTHORIZED');
+
+        //TODO: test that value is between 5 and 9
     });
 });

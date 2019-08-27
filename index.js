@@ -3,16 +3,20 @@
 const LOG_TAG = 'index';
 
 //config
-const config = require('./lib/config');
+const config = require('./lib/utils/config');
 if (!config.isProd()) {
     require('dotenv').config();
 }
 
 //configure IOC container
-const ioc = require('./lib/iocContainer');
-ioc.service('loggerFactory', c => require('./lib/winstonLogger'));
-ioc.service('ehFactory', c => require('./lib/exceptionHandler'));
-ioc.service('database', c => require('./lib/data/mockdb'));
+const ioc = require('./lib/utils/iocContainer');
+ioc.service('loggerFactory', c => require('./lib/utils/winstonLogger'));
+ioc.service('ehFactory', c => require('./lib/utils/exceptionHandler'));
+ioc.service('database', c =>
+                config.isProd ?
+                require('./lib/data/mongodb') :
+                require('./lib/data/mockdb')
+            );
 
 const logger = ioc.loggerFactory.createLogger(LOG_TAG);
 const exception = ioc.ehFactory.createHandler(logger);

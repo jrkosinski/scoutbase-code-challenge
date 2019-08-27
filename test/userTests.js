@@ -1,7 +1,7 @@
 'use strict';
 
 const testUtils = require('./testUtils');
-const ioc = require('../lib/iocContainer');
+const ioc = require('../lib/utils/iocContainer');
 const auth = require('../lib/auth');
 
 const expect  = require('chai').expect;

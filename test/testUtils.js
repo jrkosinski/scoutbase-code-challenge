@@ -1,10 +1,10 @@
 'use strict';
 
 //configure IOC container
-const ioc = require('../lib/iocContainer');
+const ioc = require('../lib/utils/iocContainer');
 ioc.service('database', c => require('../lib/data/mockdb'));
-ioc.service('loggerFactory', c => require('../lib/winstonLogger'));
-ioc.service('ehFactory', c => require('../lib/exceptionHandler'));
+ioc.service('loggerFactory', c => require('../lib/utils/winstonLogger'));
+ioc.service('ehFactory', c => require('../lib/utils/exceptionHandler'));
 
 const expect  = require('chai').expect;
 const database = require('../lib/data/mockdb');

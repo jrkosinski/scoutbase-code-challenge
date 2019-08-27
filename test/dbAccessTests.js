@@ -1,7 +1,7 @@
 'use strict';
 
 const testUtils = require('./testUtils');
-const ioc = require('../lib/iocContainer');
+const ioc = require('../lib/utils/iocContainer');
 
 const expect  = require('chai').expect;
 const database = ioc.database;
