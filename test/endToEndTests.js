@@ -80,4 +80,46 @@ describe('GraphQL Client Tests', async () => {
         const login = await client.login(username, password);
         testUtils.testAuthOutput(login, 'login');
     });
+
+    /**
+     * when user is not authenticated, scoutbase_rating should not be retrievable
+     */
+    it('attempt to retrieve scoutbase_rating unauthenticated', async () => {
+        const client = new GraphQLTestClient(testUtils.getServerUrl());
+
+        //get movies without auth
+        const data = await client.getMovies(true);
+
+        //verify that scoutbase_rating is not returned
+        expect(data.movies[0]).to.have.property('scoutbase_rating', 'NOT AUTHORIZED');
+    });
+
+    /**
+     * when user IS authenticated, scoutbase_rating should be retrievable
+     */
+    it('attempt to retrieve scoutbase_rating authenticated', async () => {
+        await testUtils.startServer();
+
+        //create client
+        const client = new GraphQLTestClient(testUtils.getServerUrl());
+
+        //username & password
+        const username = testUtils.generateNewUsername();
+        const password = 'p@$$w0rb';
+
+        //get movies before auth
+        const data = await client.getMovies(true);
+
+        expect(data.movies[0]).to.have.property('scoutbase_rating', 'NOT AUTHORIZED');
+
+        //authenticate user
+        const auth = await client.createUser(username, password);
+        testUtils.testAuthOutput(auth, 'createUser');
+
+        //get movies after auth & compare
+        const data2 = await client.getMovies(true, auth.createUser.token);
+
+        expect(data2.movies[0]).to.have.property('scoutbase_rating');
+        expect(data2.movies[0].scoutbase_rating).not.to.equal('NOT AUTHORIZED');
+    });
 });

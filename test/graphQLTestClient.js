@@ -13,13 +13,18 @@ class GraphQLTestClient {
     /**
      * retrieves movies list
      *
+     * @param {bool} includeScoutbaseRating if true include scoutbase_rating field in query
+     * @param {authToken} string optional - pass when testing with authenticated user
+     *
+     * @returns {json} response from server
      */
-    async getMovies(includeScoutbaseRating, authToken) {
+    async /*json*/ getMovies(includeScoutbaseRating, authToken) {
         const query = `{
             movies {
                 title
                 year
                 rating
+                ${includeScoutbaseRating ? 'scoutbase_rating' : ''}
                 actors {
                     name
                     birthday
@@ -33,7 +38,18 @@ class GraphQLTestClient {
             }
         }`;
 
-        return await request(this.url, query);
+        if (authToken) {
+            const client = new GraphQLClient(this.url, {
+                headers: {
+                    Authorization: authToken,
+                }
+            });
+
+            return await client.request(query);
+        }
+        else {
+            return await request(this.url, query);
+        }
     }
 
     /**
@@ -41,8 +57,10 @@ class GraphQLTestClient {
      *
      * @param {*} username
      * @param {*} password
+     *
+     * @returns {json} response from server
      */
-    async createUser(username, password) {
+    async /*json*/ createUser(username, password) {
         const mutation = `mutation createUser($username: String, $password: String) {
             createUser(username: $username, password:$password) {
               token
@@ -61,8 +79,10 @@ class GraphQLTestClient {
      *
      * @param {*} username
      * @param {*} password
+     *
+     * @returns {json} response from server
      */
-    async login(username, password) {
+    async /*json*/ login(username, password) {
         const mutation = `mutation login($username: String, $password: String) {
             login(username: $username, password:$password) {
               token
