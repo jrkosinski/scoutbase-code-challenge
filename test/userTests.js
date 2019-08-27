@@ -2,10 +2,10 @@
 
 const testUtils = require('./testUtils');
 const ioc = require('../lib/utils/iocContainer');
-const auth = require('../lib/auth');
 
 const expect  = require('chai').expect;
 const database = ioc.database;
+const auth = ioc.authManager;
 
 /**
  * tests of user creation, retrieval, and authentication, through the auth module
