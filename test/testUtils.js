@@ -2,7 +2,7 @@
 
 //configure IOC container
 const ioc = require('../lib/utils/iocContainer');
-ioc.service('authManager', c => require('../lib/auth'));
+ioc.service('authManager', c => require('../lib/auth/simpleAuth'));
 ioc.service('database', c => require('../lib/data/mockdb'));
 ioc.service('loggerFactory', c => require('../lib/utils/winstonLogger'));
 ioc.service('ehFactory', c => require('../lib/utils/exceptionHandler'));
