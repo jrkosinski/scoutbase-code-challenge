@@ -118,10 +118,15 @@ describe('GraphQL Client Tests', async () => {
 
         //get movies after auth & compare
         const data2 = await client.getMovies(true, auth.createUser.token);
+        const firstMovie = data2.movies[0];
 
-        expect(data2.movies[0]).to.have.property('scoutbase_rating');
-        expect(data2.movies[0].scoutbase_rating).not.to.equal('NOT AUTHORIZED');
+        expect(firstMovie).to.have.property('scoutbase_rating');
+        expect(firstMovie.scoutbase_rating).not.to.equal('NOT AUTHORIZED');
 
-        //TODO: test that value is between 5 and 9
+        //test that value is between 5 and 9
+        const rating = parseFloat(firstMovie.scoutbase_rating);
+        expect(isNaN(rating)).to.be.false;
+        expect(rating >= 5).to.be.true;
+        expect(rating <= 9).to.be.true;
     });
 });
