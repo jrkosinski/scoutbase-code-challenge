@@ -26,6 +26,8 @@
  *
  * - this solution contains unit tests
  *
+ * - yes I know it's overengineered for the requirements :)
+ *
  * Author: John R. Kosinski
  * Date: 27 Aug 2019
  */
