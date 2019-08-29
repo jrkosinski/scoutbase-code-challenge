@@ -15,7 +15,7 @@
  * - while the mongo-mock implementation has embedded documents (leading to duplication of data),
  *      the mongodb implementation uses document references
  *
- * - I've checked in node_modules and .env just to make testing easier for you
+ * - I've checked .env just to make testing easier for you
  *
  * - dates are stored in the database as unix timestamps, but presented in GraphQL as strings
  *      (there is in fact an additional birthday_timestamp property that returns the unix timestamp)
@@ -26,7 +26,7 @@
  *
  * - this solution contains unit tests
  *
- * - yes I know it's overengineered for the requirements :)
+ * - yes I know it's overengineered for the requirements, but it's for demonstration purposes
  *
  * Author: John R. Kosinski
  * Date: 27 Aug 2019

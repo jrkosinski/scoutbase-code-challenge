@@ -17,6 +17,18 @@
     "url": "https://github.com/jrkosinski/scoutbase-code-challenge/issues"
   },
   "homepage": "https://github.com/jrkosinski/scoutbase-code-challenge#readme",
+  "dependencies": {
+    "apollo-server-express": "^2.9.1",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "graphql": "^14.5.3",
+    "graphql-tools": "^4.0.5",
+    "mongo-mock": "^3.7.1",
+    "mongoose": "^5.6.11",
+    "ramda": "^0.26.1",
+    "uuid": "^3.3.3",
+    "winston": "^3.2.1"
+  },
   "devDependencies": {
     "chai": "^4.2.0",
     "graphql-request": "^1.8.2",
